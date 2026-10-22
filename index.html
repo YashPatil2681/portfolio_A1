@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yash Patil — Computer Engineering Student</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3f6f4;
+    --surface: #ffffff;
+    --ink: #14211c;
+    --muted: #55635c;
+    --line: #cdd8d2;
+    --accent: #0f6b57;
+    --accent-ink: #ffffff;
+    --code-bg: #0f2a23;
+    --code-ink: #cfeee3;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0e1613; --surface: #15211c; --ink: #e8f1ed; --muted: #9db0a8;
+      --line: #28382f; --accent: #4fd1b0; --accent-ink: #06241c;
+      --code-bg: #0a120f; --code-ink: #cfeee3;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0e1613; --surface: #15211c; --ink: #e8f1ed; --muted: #9db0a8;
+    --line: #28382f; --accent: #4fd1b0; --accent-ink: #06241c;
+    --code-bg: #0a120f; --code-ink: #cfeee3;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 72px; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "Newsreader", Georgia, serif; font-size: 18px; line-height: 1.65;
+  }
+  h1, h2, h3, .sans { font-family: "Space Grotesk", system-ui, sans-serif; }
+  a { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: var(--bg); border-bottom: 1px solid var(--line);
+  }
+  nav { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+  .logo { font-weight: 700; text-decoration: none; color: var(--ink); font-size: 1.05rem; }
+  .links { display: flex; gap: 22px; align-items: center; }
+  .links a { text-decoration: none; color: var(--muted); font-size: .95rem; }
+  .links a:hover, .links a.active { color: var(--ink); }
+  #theme {
+    background: none; border: 1px solid var(--line); color: var(--ink);
+    border-radius: 6px; padding: 4px 10px; cursor: pointer; font: inherit; font-size: .85rem;
+  }
+
+  /* Hero: a terminal-style intro, the one memorable element */
+  .hero { padding: 72px 0 56px; }
+  .hero h1 { font-size: clamp(2.4rem, 7vw, 4.2rem); line-height: 1.05; letter-spacing: -.02em; margin-bottom: 18px; }
+  .hero p.lead { max-width: 60ch; color: var(--muted); font-size: 1.2rem; margin-bottom: 28px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 40px; }
+  .btn {
+    display: inline-block; padding: 10px 20px; border-radius: 6px; text-decoration: none;
+    font-family: "Space Grotesk", sans-serif; font-weight: 500; border: 1px solid var(--accent);
+  }
+  .btn.primary { background: var(--accent); color: var(--accent-ink); }
+  .btn.ghost { color: var(--accent); }
+  .term {
+    background: var(--code-bg); color: var(--code-ink); border-radius: 10px;
+    padding: 18px 22px; font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    font-size: .92rem; line-height: 1.7; min-height: 150px; overflow-x: auto;
+  }
+  .term .p { color: #6fe0c0; }
+  .caret { display: inline-block; width: 8px; height: 1em; background: var(--code-ink); vertical-align: text-bottom; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  h2 { font-size: 1.7rem; margin-bottom: 24px; letter-spacing: -.01em; }
+  .about p { max-width: 68ch; margin-bottom: 14px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 22px; }
+  .fact b { display: block; font-family: "Space Grotesk", sans-serif; font-size: 1.6rem; color: var(--accent); }
+  .fact span { color: var(--muted); font-size: .95rem; }
+
+  /* Skills */
+  .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px 40px; }
+  .skills h3 { font-size: 1rem; margin-bottom: 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li {
+    list-style: none; font-family: "Space Grotesk", sans-serif; font-size: .85rem;
+    border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 3px 12px;
+  }
+
+  /* Projects */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+  .filters button {
+    font: 500 .9rem "Space Grotesk", sans-serif; background: var(--surface); color: var(--ink);
+    border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; cursor: pointer;
+  }
+  .filters button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  .project { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 22px 24px; margin-bottom: 16px; }
+  .project[hidden] { display: none; }
+  .project h3 { font-size: 1.2rem; margin-bottom: 4px; }
+  .stack { color: var(--accent); font-family: "Space Grotesk", sans-serif; font-size: .88rem; margin-bottom: 10px; }
+  .project ul { padding-left: 20px; color: var(--muted); }
+  .project li { margin-bottom: 4px; }
+
+  /* Education & achievements */
+  .row { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; }
+  .row b { font-family: "Space Grotesk", sans-serif; }
+  .muted { color: var(--muted); }
+  .ach { padding-left: 20px; }
+  .ach li { margin-bottom: 8px; }
+
+  /* Contact */
+  .contact-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+  #copied { margin-left: 10px; color: var(--accent); font-size: .95rem; }
+  footer { padding: 28px 0 40px; border-top: 1px solid var(--line); color: var(--muted); font-size: .9rem; }
+
+  @media (max-width: 600px) { .links a { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .caret { animation: none; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="wrap" aria-label="Main">
+    <a class="logo" href="#top">Yash Patil</a>
+    <div class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+      <button id="theme" type="button" aria-label="Toggle dark mode">Theme</button>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+  <div class="wrap">
+    <div class="hero">
+      <h1>I build full-stack apps and solve problems with data.</h1>
+      <p class="lead">Computer Engineering student at PCCOE, Pune. I work with React, Node.js, MongoDB and Python, and I like turning messy problems into clean, working software.</p>
+      <div class="actions">
+        <a class="btn primary" href="#projects">See my projects</a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+      <div class="term" aria-label="Typing animation introducing Yash" id="term"></div>
+    </div>
+
+    <section id="about" class="about">
+      <h2>About</h2>
+      <p>I'm a B.Tech student in Computer Engineering with a strong base in data structures, algorithms, OOP and databases. I enjoy building things end to end, from the interface to the API to the database.</p>
+      <p>Outside of coursework I practise problem solving regularly, and I've built projects for my campus community and for my own curiosity about data.</p>
+      <div class="facts">
+        <div class="fact"><b>300+</b><span>LeetCode problems solved</span></div>
+        <div class="fact"><b>5-Star</b><span>HackerRank, Problem Solving</span></div>
+        <div class="fact"><b>98.71</b><span>MHT-CET percentile</span></div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div><h3>Languages</h3><ul class="chips"><li>C++</li><li>Python</li><li>JavaScript</li><li>SQL</li></ul></div>
+        <div><h3>Frontend</h3><ul class="chips"><li>HTML5</li><li>CSS3</li><li>React.js</li></ul></div>
+        <div><h3>Backend</h3><ul class="chips"><li>Node.js</li><li>Express.js</li><li>REST APIs</li></ul></div>
+        <div><h3>Databases</h3><ul class="chips"><li>MongoDB</li><li>MySQL</li></ul></div>
+        <div><h3>Data &amp; AI</h3><ul class="chips"><li>Pandas</li><li>NumPy</li><li>Matplotlib</li><li>Scikit-learn</li></ul></div>
+        <div><h3>Tools</h3><ul class="chips"><li>Git &amp; GitHub</li><li>Docker</li><li>Jupyter</li><li>VS Code</li></ul></div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="filters" role="group" aria-label="Filter projects">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="web" aria-pressed="false">Web</button>
+        <button type="button" data-filter="data" aria-pressed="false">Data</button>
+      </div>
+
+      <article class="project" data-type="web">
+        <h3>PCCOE Campus Interview &amp; Placement Intelligence Platform</h3>
+        <p class="stack">React.js, Node.js, Express.js, MongoDB</p>
+        <ul>
+          <li>MERN platform where students track campus drives, share interview experiences and read technical interview questions.</li>
+          <li>OTP authentication and role-based access for students and administrators.</li>
+          <li>Searchable interview modules with admin moderation, bookmarks, answers, and filters by company, role, year and difficulty.</li>
+        </ul>
+      </article>
+
+      <article class="project" data-type="data">
+        <h3>Employee Productivity Analysis &amp; Package Prediction</h3>
+        <p class="stack">Python, Pandas, NumPy, Scikit-learn</p>
+        <ul>
+          <li>Analyzed 8,358 employee records with 17 features, linking experience, skills, productivity, performance and salary.</li>
+          <li>Cleaned data and engineered features with One-Hot Encoding, Ordinal Encoding and MultiLabelBinarizer.</li>
+          <li>Built a salary prediction regression model, evaluated with MAE, RMSE and R².</li>
+        </ul>
+      </article>
+
+      <article class="project" data-type="web">
+        <h3>CaveNote – Encrypted Notepad</h3>
+        <p class="stack">React.js, Supabase, JavaScript</p>
+        <ul>
+          <li>Web notepad to create and store encrypted notes without registration.</li>
+          <li>Responsive React frontend.</li>
+          <li>Notes are encrypted in the browser before they are saved to Supabase.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <div class="row"><b>Pimpri Chinchwad College of Engineering, Pune</b><span class="muted">2023 – 2027</span></div>
+      <p>B.Tech in Computer Engineering</p>
+      <p class="muted">CGPA: 7.15 / 10 · MHT-CET Percentile: 98.71</p>
+    </section>
+
+    <section id="achievements">
+      <h2>Achievements &amp; certifications</h2>
+      <ul class="ach">
+        <li>Copyright registered with the Government of India for Affordable PG Finder (No. LD-20250169700).</li>
+        <li>5-Star HackerRank rating in Problem Solving.</li>
+        <li>300+ problems solved on LeetCode in data structures and algorithms.</li>
+        <li>AWS course certificate of completion on Udemy (39 hours, April 2026).</li>
+      </ul>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>I'm open to internships and collaboration. The quickest way to reach me is email.</p>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:yashpatil2681@email.com">Email me</a>
+        <button class="btn ghost" id="copy" type="button" style="background:none;cursor:pointer;font-size:1rem">Copy email</button>
+        <a class="btn ghost" href="tel:+919322755125">Call</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">GitHub</a>
+        <span id="copied" role="status"></span>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Yash Patil</div>
+</footer>
+
+<script>
+  // Footer year
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Theme toggle (follows system by default)
+  const root = document.documentElement;
+  document.getElementById("theme").addEventListener("click", () => {
+    const dark = root.dataset.theme === "dark" ||
+      (!root.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+    root.dataset.theme = dark ? "light" : "dark";
+  });
+
+  // Typing intro
+  const term = document.getElementById("term");
+  const lines = [
+    "whoami",
+    "yash patil, computer engineering student",
+    "cat skills.txt",
+    "C++, Python, JavaScript, React, Node, MongoDB",
+    "status",
+    "looking for internships"
+  ];
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function render(done, partial) {
+    let html = "";
+    done.forEach((l, i) => {
+      html += i % 2 === 0 ? `<div><span class="p">$</span> ${l}</div>` : `<div>${l}</div>`;
+    });
+    if (partial !== null) {
+      const isCmd = done.length % 2 === 0;
+      html += `<div>${isCmd ? '<span class="p">$</span> ' : ""}${partial}<span class="caret"></span></div>`;
+    }
+    term.innerHTML = html;
+  }
+  async function type() {
+    if (reduce) { render(lines, null); return; }
+    const done = [];
+    for (const line of lines) {
+      for (let i = 1; i <= line.length; i++) {
+        render(done, line.slice(0, i));
+        await new Promise(r => setTimeout(r, 28));
+      }
+      done.push(line);
+      render(done, "");
+      await new Promise(r => setTimeout(r, 350));
+    }
+    render(done, "");
+  }
+  type();
+
+  // Project filters
+  const buttons = document.querySelectorAll(".filters button");
+  const cards = document.querySelectorAll(".project");
+  buttons.forEach(btn => btn.addEventListener("click", () => {
+    buttons.forEach(b => b.setAttribute("aria-pressed", b === btn));
+    const f = btn.dataset.filter;
+    cards.forEach(c => c.hidden = !(f === "all" || c.dataset.type === f));
+  }));
+
+  // Copy email
+  document.getElementById("copy").addEventListener("click", async () => {
+    const msg = document.getElementById("copied");
+    try {
+      await navigator.clipboard.writeText("yashpatil2681@email.com");
+      msg.textContent = "Email copied";
+    } catch (e) {
+      msg.textContent = "Copy failed. Email: yashpatil2681@email.com";
+    }
+    setTimeout(() => (msg.textContent = ""), 2500);
+  });
+
+  // Highlight current section in nav
+  const navLinks = document.querySelectorAll(".links a");
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+      }
+    });
+  }, { rootMargin: "-40% 0px -55% 0px" });
+  document.querySelectorAll("section[id]").forEach(s => io.observe(s));
+</script>
+</body>
+</html>
